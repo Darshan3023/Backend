@@ -1,0 +1,262 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "dev-vin2-apigateway",
+    "version": "1.0"
+  },
+  "tags": [
+    {
+      "name": "ListService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/rs/v1/create": {
+      "post": {
+        "operationId": "ListService_CreateOrUpdateMovie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/MovieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MovieRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ListService"
+        ]
+      }
+    },
+    "/api/rs/v1/delete": {
+      "post": {
+        "operationId": "ListService_DeleteMovie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteMovieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteMovieRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ListService"
+        ]
+      }
+    },
+    "/api/rs/v1/get": {
+      "post": {
+        "operationId": "ListService_GetMovieList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/MovieListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MovieListRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ListService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "DeleteMovieRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "DeleteMovieResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Movie": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "genre": {
+          "type": "string"
+        },
+        "year": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "rating": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    },
+    "MovieListRequest": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "title": "Optional search filter"
+        },
+        "genre": {
+          "type": "string",
+          "title": "Optional filter"
+        },
+        "year": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Optional filter"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "title": "For pagination"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "title": "For pagination"
+        }
+      }
+    },
+    "MovieListResponse": {
+      "type": "object",
+      "properties": {
+        "movies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Movie"
+          }
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32",
+          "title": "For pagination"
+        }
+      }
+    },
+    "MovieRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Empty for new movies, populated for updates"
+        },
+        "title": {
+          "type": "string"
+        },
+        "genre": {
+          "type": "string"
+        },
+        "year": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "rating": {
+          "type": "number",
+          "format": "float",
+          "title": "Rating between 0 and 5"
+        }
+      }
+    },
+    "MovieResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

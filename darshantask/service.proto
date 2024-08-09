@@ -1,0 +1,76 @@
+syntax = "proto3";
+option go_package="./pb";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+    info: {
+      title: "dev-vin2-apigateway"
+      version: "1.0"
+    }
+};
+message MovieRequest {
+    string id = 1; // Empty for new movies, populated for updates
+    string title = 2;
+    string genre = 3;
+    int32 year = 4;
+    float rating = 5; // Rating between 0 and 5
+}
+
+message MovieResponse {
+    string id = 1;
+    string message = 2;
+}
+
+message MovieListRequest {
+    string title = 1;   // Optional search filter
+    string genre = 2;   // Optional filter
+    int32 year = 3;     // Optional filter
+    int32 page = 4;     // For pagination
+    int32 page_size = 5; // For pagination
+}
+
+message Movie {
+    string id = 1;
+    string title = 2;
+    string genre = 3;
+    int32 year = 4;
+    float rating = 5;
+}
+
+message MovieListResponse {
+    repeated Movie movies = 1;
+    int32 total_count = 2; // For pagination
+}
+
+message DeleteMovieRequest {
+    string id = 1;
+}
+
+message DeleteMovieResponse {
+    string message = 1;
+}
+service ListService {
+    rpc CreateOrUpdateMovie (MovieRequest) returns (MovieResponse){
+        option (google.api.http) = {
+            post: "/api/rs/v1/create"
+            body: "*"
+            
+        };
+    }
+    rpc GetMovieList (MovieListRequest) returns (MovieListResponse){
+        option (google.api.http) = {
+            post: "/api/rs/v1/get"
+            body: "*"
+            
+        };
+    }
+    rpc DeleteMovie(DeleteMovieRequest) returns (DeleteMovieResponse){
+        option (google.api.http) = {
+            post: "/api/rs/v1/delete"
+            body: "*"
+            
+        };
+    }
+}
