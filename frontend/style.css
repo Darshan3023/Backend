@@ -1,0 +1,36 @@
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .page-link {
+    cursor: pointer;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .card img {
+    object-fit: cover;
+    width: 100%;
+    height: 300px;
+  }
+  
+  .page-link {
+    cursor: pointer;
+  }
+  
